@@ -10,6 +10,8 @@ import Courses from "./pages/Courses";
 import Profile from "./pages/Profile";
 import SingIn from "./pages/SingIn";
 import SingUp from "./pages/SingUp";
+import Privacy from "./pages/Privacy";
+import "./index.css"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,6 +24,7 @@ ReactDOM.render(
           <Route path="/profile" element={<Profile />} />
           <Route path="/singin" element={<SingIn />} />
           <Route path="/singup" element={<SingUp />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Route>
       </Routes>
     </BrowserRouter>

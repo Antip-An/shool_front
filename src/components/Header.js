@@ -27,7 +27,12 @@ const Header = () => {
           <Nav>
             <Nav.Link as={Link} to="/" disabled={pathname === "/"}>Главная</Nav.Link>
             <Nav.Link as={Link} to="/courses" disabled={pathname === "/courses"}>Курсы</Nav.Link>
-            <Nav.Link as={Link} to="/myCourses" disabled={pathname === "/myCourses"}>Мои курсы</Nav.Link>
+            <NavDropdown title="О нас">
+              <NavDropdown.Item as={Link} to="/privacy">
+                Политика конфиденциальности
+              </NavDropdown.Item>
+              {/* TODO */}
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
         <Navbar.Brand as={Link} to="/profile">

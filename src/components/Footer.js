@@ -16,7 +16,7 @@ const Footer = () => {
           <p>Онлайн-курсы магических дисциплин</p>
         </Col>
         <Col className="footer-element" xs={12} sm={4}>
-          <h3>Страницы портала</h3>
+          <h3>Страницы сайта</h3>
           <ul>
             <li>
               <Link className={pathname === "/" ? "current" : ""} to="/">
@@ -31,22 +31,15 @@ const Footer = () => {
                 Курсы
               </Link>
             </li>
+            {/* -------------------------------------------------- */}
             <li>
               <Link
-                className={pathname === "/myCourses" ? "current" : ""}
-                to="/myCourses"
-              >
-                Мои курсы
-              </Link>
-            </li>
-            {/* <li>
-              <Link
-                className={pathname === "/about/privacy" ? "current" : ""}
-                to="/about/privacy"
+                className={pathname === "/privacy" ? "current" : ""}
+                to="/privacy"
               >
                 Политика конфиденциальности
               </Link>
-            </li> */}
+            </li>
           </ul>
         </Col>
         <Col className="footer-element" xs={12} sm={4}>
@@ -65,7 +58,7 @@ const Footer = () => {
       </Row>
       <Row>
         <Col className="footer-element">
-          <div>&copy; Портал - Магия 2022</div>
+          <div>&copy; Все права защищены 2022</div>
         </Col>
       </Row>
     </Container>
