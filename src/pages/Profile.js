@@ -32,10 +32,10 @@ const UserForm = () => {
             <Card.Title style={{ "fontFamily": "Century Gothic","letterSpacing": "3.5px", "textAlign": "center","fontSize":"30px" }}>Изменить ваши данные</Card.Title>
             <Form onSubmit={editUserData}>
               <Form.Group className="reg-fg">
-                <Form.Label>Имя</Form.Label>
+                <Form.Label>Логин</Form.Label>
                 <Form.Control
                   type="login"
-                  placeholder="Введите имя"
+                  placeholder="Введите логин"
                   id="login"
                   value={newLogin}
                   onChange={(event) => setNewLogin(event.target.value)}
@@ -74,7 +74,7 @@ const Profile = () => {
   const [user, setUser] = useState();
 
   const getUserData = () => {
-    getData('/users/user.id')
+    getData('/users/1')
       .then(response => setUser(response.user))
   }
 

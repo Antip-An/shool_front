@@ -118,6 +118,7 @@ const Courses = () => {
         getCoutsesList()
         getUserData()
     }, [])
+    
     return (
         <Container>
             <h1
