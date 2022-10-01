@@ -7,6 +7,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router";
+import { postData } from "../utils/network";
+import useLoginGuard from "../hooks/useLoginGuard";
 
 const SingIn = () => {
   const navigate = useNavigate();
@@ -22,6 +24,25 @@ const SingIn = () => {
     setValidated(true);
   };
 
+  useLoginGuard({ loggedIn: true, path: "/" });
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onLogin = async (e) => {
+    e.preventDefault()
+    const response = await postData("/users/singin", { email, password });
+
+    if (!response.success) {
+      alert(response.message);
+      if (response.code !== "NETWORK_ERROR") setPassword("");
+      return;
+    }
+
+    localStorage.setItem("token", response.token);
+    navigate("/");
+  };
+
   return (
     <Container>
       <Row>
@@ -32,7 +53,7 @@ const SingIn = () => {
               <Col><CloseButton 
                 style={{marginLeft:"97%"}}
                 onClick={() => {
-                  navigate("/profile");
+                  navigate("/");
                 }}
                 />
               </Col>
@@ -41,27 +62,31 @@ const SingIn = () => {
               <Row className="mb-3">
                 <Form.Group as={Col} md="4" controlId="validationCustom01">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control required type="email" placeholder="Email" />
+                  <Form.Control 
+                    required type="email" 
+                    placeholder="Email"
+                    id="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
                   <Form.Control.Feedback>Молодец!</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group as={Col} md="4" controlId="validationCustom02">
                   <Form.Label>Пароль</Form.Label>
-                  <Form.Control id="password" required type="password" placeholder="Пароль" />
+                  <Form.Control 
+                    id="password" 
+                    required type="password" 
+                    placeholder="Пароль" 
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
                   <Form.Control.Feedback>Все отлично!</Form.Control.Feedback>
                 </Form.Group>
               </Row>
 
-              <Button type="submit">Войти</Button>
+              <Button type="submit" onClick={onLogin}>Войти</Button>
             </Form>
-
-            <Button
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Войти2
-            </Button>
           </Card.Body>
         </Card>
       </Row>

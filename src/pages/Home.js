@@ -8,6 +8,8 @@ import photo1 from "../assets/1.jpg";
 import photo2 from "../assets/2.jpg";
 import photo3 from "../assets/3.jpg";
 import useToken from "../hooks/useToken";
+import { ChevronCompactDown } from 'react-bootstrap-icons';
+
 
 const Home = () => {
   const { pathname } = useLocation();
@@ -28,32 +30,12 @@ const Home = () => {
             <img id="logo" src={logo} />
             <h1>Школа чародейства и волшебства Хогвартс</h1>
             <h4>Онлайн-курсы магических дисциплин</h4>
-            {!loggedIn ? (
-              <Button
-                variant="light"
-                as={Link}
-                to="/singin"
-                disabled={pathname === "/singin"}
-              >
-                Вход
-              </Button>
-            ) : (
-              <Button onClick={onLogout}>Выход</Button>
-            )}
-            {!loggedIn ? (
-              <Button
-                variant="light"
-                as={Link}
-                to="/singup"
-                disabled={pathname === "/singup"}
-              >
-                Регистрация
-              </Button>
-            ) : (
-              <Button onClick={onLogout}>Регистрация</Button>
-            )}
+            <ChevronCompactDown style={{marginBottom:"-20px"}} size={40} /><br />
+            <ChevronCompactDown style={{marginBottom:"-15px"}} size={35} /><br />
+            <ChevronCompactDown style={{marginBottom:"-10px"}} size={30} />
           </Carousel.Caption>
         </Carousel.Item>
+
         <Carousel.Item>
           <img id="phot" src={photo2} />
 
@@ -70,6 +52,7 @@ const Home = () => {
             </Button>
           </Carousel.Caption>
         </Carousel.Item>
+
         <Carousel.Item>
           <img id="phot" src={photo3} />
 

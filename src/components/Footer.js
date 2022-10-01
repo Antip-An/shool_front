@@ -3,10 +3,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import useToken from "../hooks/useToken";
 import "./footer.css";
 
 const Footer = () => {
   const { pathname } = useLocation();
+  const { loggedIn } = useToken();
 
   return (
     <Container id="footer" fluid>
@@ -24,12 +26,14 @@ const Footer = () => {
               </Link>
             </li>
             <li>
+            {loggedIn ? (
               <Link
                 className={pathname === "/courses" ? "current" : ""}
                 to="/courses"
               >
                 Курсы
               </Link>
+              ) : ( null )}
             </li>
             {/* -------------------------------------------------- */}
             <li>
