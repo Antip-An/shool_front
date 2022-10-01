@@ -85,7 +85,7 @@ const Courses = () => {
     const { cartList, setCartList } = useContext(cartContext);
 
     const getUserData = async () => {
-        const { user } = await getData('/users/one')
+        const { user } = await getData('/users/1')
         if (user.role === "admin") return setIsAdmin(true)
     }
 
@@ -129,7 +129,7 @@ const Courses = () => {
                 <>
                     <AdminAddCoursesdModal
                         show={addModalShow}
-                        getProductList={getCoutsesList}
+                        getCoursesList={getCoutsesList}
                         onHide={() => setAddModalShow(false)}
                     />
                     <Button
@@ -141,11 +141,11 @@ const Courses = () => {
             {CoursesList ?
                 CoursesList.map((courses) => <CourseCard
                     key={courses.id}
-                    product={courses}
+                    courses={courses}
                     isAdmin={isAdmin}
-                    getProductList={getCoutsesList}
+                    getCoursesList={getCoutsesList}
                     handleAdd={handleAdd}
-                    deleteProduct={deleteCourse}
+                    deleteCourse={deleteCourse}
                 />
                 )
                 :
