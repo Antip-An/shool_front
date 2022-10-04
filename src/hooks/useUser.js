@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import useToken from "./useToken";
 import { getData } from "../utils/network";
+
+import useToken from "./useToken";
 
 const useUser = () => {
     const { token } = useToken();

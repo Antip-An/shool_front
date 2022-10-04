@@ -1,10 +1,11 @@
 import { createContext, useState } from "react";
 import { Outlet } from "react-router-dom";
-import useToken from "./hooks/useToken";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
+
 import useLoginGuard from "./hooks/useLoginGuard";
+import useToken from "./hooks/useToken";
 
 export const cartContext = createContext(null)
 
@@ -18,7 +19,6 @@ const Page = () => {
       <cartContext.Provider value={{cartList, setCartList}}>
         <Header />
             <div className="main">
-              {/* {loggedIn ? <Outlet /> : <Home />} */}
               <Outlet />
             </div>
         <Footer />

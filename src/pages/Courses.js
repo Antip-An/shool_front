@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { useNavigate } from "react-router";
+
 import AdminAddCoursesdModal from "../components/AdminAddCoursesModal";
 import AdminEditCoursesdModal from "../components/AdminEditCoursesModal";
-import { cartContext } from "../Page";
 import { getData, postData } from "../utils/network";
-import { useNavigate } from "react-router";
+import { cartContext } from "../Page";
+
+import Container from "react-bootstrap/Container"
+import Button from "react-bootstrap/Button"
+import Card from "react-bootstrap/Card"
 
 const CourseCard = ({ course, isAdmin }) => {
   const navigate = useNavigate();
@@ -31,8 +35,9 @@ const Courses = () => {
   const [CoursesList, setCoursesList] = useState(false);
   const { cartList, setCartList } = useContext(cartContext);
 
+// TODO: 
   const getUserData = async () => {
-    const { user } = await getData("/users/1");
+    const { user } = await getData("/users/1")
     if (user.role === "admin") return setIsAdmin(true);
   };
 
@@ -78,7 +83,7 @@ const Courses = () => {
             onHide={() => setAddModalShow(false)}
           />
           <Button variant="primary" onClick={() => setAddModalShow(true)}>
-            Добавить товар
+            Добавить Курс
           </Button>
         </>
       )}

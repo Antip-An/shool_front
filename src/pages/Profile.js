@@ -1,6 +1,12 @@
-import { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Form, Table } from "react-bootstrap";
 import { getData, postData } from "../utils/network";
+import { useEffect, useState } from "react";
+
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+
 import useUser from "../hooks/useUser";
 
 const UserForm = () => {
@@ -77,7 +83,7 @@ const Profile = () => {
 
   return (
     <Container>
-      <h1 className="pt-3" style={{ textAlign:"center" }}>Профиль</h1>
+      <h1 className="pt-3" style={{ textAlign:"center", color: "rgba(0,0,0,.55)" }}>Профиль</h1>
       {user &&
         <>
           <h3>Логин:</h3> <p>{user.login}</p>

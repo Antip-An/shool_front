@@ -1,12 +1,13 @@
+import { useNavigate } from "react-router";
 import { useState } from "react";
+
 import CloseButton from 'react-bootstrap/CloseButton';
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router";
+import Row from "react-bootstrap/Row";
 
 const SingUp = () => {
   const navigate = useNavigate();

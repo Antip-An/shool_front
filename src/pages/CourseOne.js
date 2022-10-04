@@ -1,12 +1,99 @@
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
-const CourseOne = ({ course, isAdmin }) => {
-  
+import AdminAddCoursesdModal from "../components/AdminAddCoursesModal";
+import AdminEditCoursesdModal from "../components/AdminEditCoursesModal";
+import { getData, postData } from "../utils/network";
+import { cartContext } from "../Page";
+
+import Container from "react-bootstrap/Container"
+import Button from "react-bootstrap/Button"
+import Card from "react-bootstrap/Card"
+
+const LessonCard = ({ lesson, isAdmin }) => {
+  const navigate = useNavigate();
+  return (
+    <Card style={{ width: "22rem" }}>
+      <Card.Body>
+        <Card.Title>{lesson.title}</Card.Title>
+        <Button
+          variant="primary"
+          onClick={() => {
+            navigate("/lessons/"+lesson.id);
+          }}
+        >
+          Начать
+        </Button>
+      </Card.Body>
+    </Card>
+  );
+};
+
+const CourseOne = ({course}) => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [addModalShow, setAddModalShow] = useState(false);
+  const [LessonsList, setLessonsList] = useState(false);
+  const { cartList, setCartList } = useContext(cartContext);
+
+  // TODO:
+  const getUserData = async () => {
+    const { user } = await getData("/users/1");
+    if (user.role === "admin") return setIsAdmin(true);
+  };
+
+  async function getLessonsList() {
+    const { success, lessons, message } = await getData("/lessons/list/10");
+    if (!success) return alert(message);
+    return setLessonsList(lessons);
+  }
+
+  function handleAdd(itemId) {
+    const candidate = cartList.findIndex((item) => item.id === itemId);
+    if (candidate >= 0) {
+      const updatedCart = [...cartList];
+      updatedCart[candidate].amount += 1;
+      setCartList(updatedCart);
+    } else {
+      setCartList((prev) => [...prev, { id: itemId, amount: 1 }]);
+    }
+  }
+
+  async function deleteLesson(lessonId) {
+    const { success, message } = await postData("/lessons/del", { lessonId });
+    if (!success) return alert(message);
+    await getLessonsList();
+    return alert(message);
+  }
+
+  useEffect(() => {
+    getLessonsList();
+    getUserData();
+  }, []);
+
   return (
     <Container>
-        <p>hkgj</p>
-        {/* <h1>Курс {course.title}</h1>
-        <h3>Описание: {course.description}</h3> */}
+      {/* <h1>Курс {course.title}</h1>
+      <h3>Описание: {course.description}</h3> */}
+
+      {isAdmin && (
+        <>
+          <AdminAddCoursesdModal
+            show={addModalShow}
+            getLessonsList={getLessonsList}
+            onHide={() => setAddModalShow(false)}
+          />
+          <Button variant="primary" onClick={() => setAddModalShow(true)}>
+            Добавить урок
+          </Button>
+        </>
+      )}
+      {LessonsList ? (
+        LessonsList.map((lesson) => (
+          <LessonCard key={lesson.id} lesson={lesson} isAdmin={isAdmin} />
+        ))
+      ) : (
+        <h3>Уроков нет</h3>
+      )}
     </Container>
   );
 };

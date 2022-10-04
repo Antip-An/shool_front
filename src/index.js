@@ -1,17 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import ReactDOM from 'react-dom';
+import React from 'react';
 
-import Page from "./Page";
-import Home from "./pages/Home";
-import Courses from "./pages/Courses";
 import CourseOne from "./pages/CourseOne";
-// import Lessons from "./pages/Lessons";
+import LessonOne from "./pages/LessonOne";
+import Courses from "./pages/Courses";
 import Profile from "./pages/Profile";
+import Privacy from "./pages/Privacy";
 import SingIn from "./pages/SingIn";
 import SingUp from "./pages/SingUp";
-import Privacy from "./pages/Privacy";
+import About from "./pages/About";
+import Page from "./Page";
+import Home from "./pages/Home";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css"
 
 ReactDOM.render(
@@ -22,11 +24,12 @@ ReactDOM.render(
           <Route index element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/courses/:id" element={<CourseOne />} />
-          {/* <Route path="/lessons" element={<Lessons />} /> */}
+          <Route path="/lessons/:id" element={<LessonOne />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/singin" element={<SingIn />} />
           <Route path="/singup" element={<SingUp />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/about" element={<About />} />
         </Route>
       </Routes>
     </BrowserRouter>

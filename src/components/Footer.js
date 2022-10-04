@@ -1,9 +1,12 @@
+import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
+
 import useToken from "../hooks/useToken";
+
 import "./footer.css";
 
 const Footer = () => {
@@ -35,13 +38,20 @@ const Footer = () => {
               </Link>
               ) : ( null )}
             </li>
-            {/* -------------------------------------------------- */}
             <li>
               <Link
                 className={pathname === "/privacy" ? "current" : ""}
                 to="/privacy"
               >
                 Политика конфиденциальности
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={pathname === "/about" ? "current" : ""}
+                to="/about"
+              >
+                Контакты
               </Link>
             </li>
           </ul>

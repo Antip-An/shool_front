@@ -1,25 +1,19 @@
+import { ChevronCompactDown } from 'react-bootstrap-icons';
 import { useLocation, useNavigate } from "react-router";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
+
+import Carousel from "react-bootstrap/Carousel";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+
 import logo from "../assets/logo.png";
 import photo1 from "../assets/1.jpg";
 import photo2 from "../assets/2.jpg";
 import photo3 from "../assets/3.jpg";
-import useToken from "../hooks/useToken";
-import { ChevronCompactDown } from 'react-bootstrap-icons';
-
 
 const Home = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { loggedIn } = useToken();
-
-  const onLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-  };
 
   return (
     <Card>

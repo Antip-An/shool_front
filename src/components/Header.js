@@ -1,12 +1,16 @@
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import "./header.css";
-import logo from "../assets/logo.png";
-import photo from "../assets/4.png";
-import useToken from "../hooks/useToken";
-import { PersonSquare, XCircle } from 'react-bootstrap-icons';
 
+import { PersonSquare, XCircle } from 'react-bootstrap-icons';
+import Container from "react-bootstrap/Container"
+import Navbar from "react-bootstrap/Navbar"
+import Nav from "react-bootstrap/Nav"
+import NavDropdown from "react-bootstrap/NavDropdown"
+
+import useToken from "../hooks/useToken";
+import logo from "../assets/logo.png";
+
+import "./header.css";
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -44,7 +48,9 @@ const Header = () => {
               <NavDropdown.Item as={Link} to="/privacy">
                 Политика конфиденциальности
               </NavDropdown.Item>
-              {/* TODO */}
+              <NavDropdown.Item as={Link} to="/about">
+                Контакты
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
 
