@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Form, Table } from "react-bootstrap";
 import { getData, postData } from "../utils/network";
+import useUser from "../hooks/useUser";
 
 const UserForm = () => {
   const [newLogin, setNewLogin] = useState();
@@ -71,19 +72,9 @@ const UserForm = () => {
 }
 
 const Profile = () => {
-  const [user, setUser] = useState();
 
-  const getUserData = () => {
-    getData('/users/1')
-      .then(response => setUser(response.user))
-  }
+  const {userData:user} = useUser()
 
-  function onLoad() {
-    getUserData()
-  }
-  useEffect(() => {
-    onLoad()
-  }, [])
   return (
     <Container>
       <h1 className="pt-3" style={{ textAlign:"center" }}>Профиль</h1>

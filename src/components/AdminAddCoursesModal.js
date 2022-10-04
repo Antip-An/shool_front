@@ -67,14 +67,6 @@ export default function AdminAddCoursesdModal(props) {
               />
             </Form.Group>
             
-            <Form.Group controlId="formFileLg" className="mb-3">
-              <Form.Label>Обложка</Form.Label>
-              <Form.Control
-                type="file"
-                size="lg"
-                onChange={(event) => setFile(event.target.files[0])}
-              />
-            </Form.Group>
             <Button className='ms-auto mt-3' type='submit'>Добавить</Button>
           </Form>
         </Row>
