@@ -15,12 +15,26 @@ import useLoginGuard from "../hooks/useLoginGuard";
 const SingIn = () => {
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
+    event.preventDefault();
+    if (!form.checkValidity()) {
       event.stopPropagation();
+    }
+    else {
+      const response = await postData("/users/singin", { email, password });
+
+    if (!response.success) {
+      alert(response.message);
+      if (response.code !== "NETWORK_ERROR") setPassword("");
+      return;
+    }
+
+    localStorage.setItem("token", response.token);
+    navigate("/");
     }
 
     setValidated(true);
@@ -28,11 +42,7 @@ const SingIn = () => {
 
   useLoginGuard({ loggedIn: true, path: "/" });
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const onLogin = async (e) => {
-    e.preventDefault()
     const response = await postData("/users/singin", { email, password });
 
     if (!response.success) {
@@ -62,23 +72,23 @@ const SingIn = () => {
             </Row>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <Form.Group as={Col} md="4" controlId="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control 
-                    required type="email" 
+                    required 
+                    type="email" 
                     placeholder="Email"
-                    id="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                   />
                   <Form.Control.Feedback>Молодец!</Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group as={Col} md="4" controlId="validationCustom02">
+                <Form.Group as={Col} md="4" controlId="password">
                   <Form.Label>Пароль</Form.Label>
                   <Form.Control 
-                    id="password" 
-                    required type="password" 
+                    required 
+                    type="password" 
                     placeholder="Пароль" 
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
@@ -87,7 +97,7 @@ const SingIn = () => {
                 </Form.Group>
               </Row>
 
-              <Button type="submit" onClick={onLogin}>Войти</Button>
+              <Button type="submit">Войти</Button>
             </Form>
           </Card.Body>
         </Card>
