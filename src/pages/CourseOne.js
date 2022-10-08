@@ -6,42 +6,55 @@ import AdminEditCoursesdModal from "../components/AdminEditCoursesModal";
 import { getData, postData, deleteData } from "../utils/network";
 import { cartContext } from "../Page";
 
+import CardGroup from "react-bootstrap/CardGroup";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import CloseButton from "react-bootstrap/CloseButton";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 import useUser from "../hooks/useUser";
 
 const LessonCard = ({ lesson, onDelete, onUpdate }) => {
   const navigate = useNavigate();
   const { userData: user } = useUser();
-  
+
   return (
-    <Card style={{ width: "22rem" }}>
-      <Card.Body>
-        <Card.Title>{lesson.title}</Card.Title>
-        <Button
-          variant="primary"
-          onClick={() => {
-            navigate("/lessons/" + lesson.id);
-          }}
-        >
-          Начать
-        </Button>
+    <CardGroup>
+      <Card style={{ width: "22rem", marginTop: "20px" }}>
+        <Card.Body>
+          <Card.Title>{lesson.title}</Card.Title>
+          <Row>
+            <Col>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  navigate("/lessons/" + lesson.id);
+                }}
+              >
+                Начать
+              </Button>
+            </Col>
 
-        {user && user.role === "admin" && (
-          <>
-            <Button variant="primary" onClick={onUpdate}>
-              Изменить
-            </Button>
-
-            <Button variant="primary" onClick={onDelete}>
-              Удалить
-            </Button>
-          </>
-        )}
-      </Card.Body>
-    </Card>
+            {user && user.role === "admin" && (
+              <>
+                <Col md="auto">
+                  <Button variant="primary" onClick={onUpdate}>
+                    Изменить
+                  </Button>
+                </Col>
+                <Col xs lg="2">
+                  <Button variant="primary" onClick={onDelete}>
+                    Удалить
+                  </Button>
+                </Col>
+              </>
+            )}
+          </Row>
+        </Card.Body>
+      </Card>
+    </CardGroup>
   );
 };
 
@@ -50,7 +63,9 @@ const CourseOne = () => {
   const { userData: user } = useUser();
   const [addModalShow, setAddModalShow] = useState(false);
   const [LessonsList, setLessonsList] = useState(false);
+  const [courseData, setCourseData] = useState();
   const { cartList, setCartList } = useContext(cartContext);
+  const navigate = useNavigate();
 
   // const getUserData = async () => {
   //   const { user } = await getData("/users/1");
@@ -69,6 +84,13 @@ const CourseOne = () => {
     const { success, message } = await deleteData(`/lessons/${lessonId}`);
     if (!success) return alert(message);
     await getLessonsList();
+  }
+
+  async function loadCourseData() {
+    const result = await getData(`/courses/${id}`)
+    console.log(result)
+    if (!result.success) return
+    setCourseData(result.order)
   }
 
   // function handleAdd(itemId) {
@@ -91,18 +113,19 @@ const CourseOne = () => {
 
   useEffect(() => {
     getLessonsList();
+    loadCourseData();
   }, []);
 
   return (
     <Container>
-      <h1>Курс</h1>
-      {/* <h1>Курс {course.title}</h1>
-      <h3>Описание: {course.description}</h3> */}
+      <h1>Курс {courseData && courseData.title}</h1>
+      <h3>Описание: {courseData && courseData.description}</h3>
 
       {user && user.role === "admin" && (
         <>
           <AdminAddCoursesdModal
             show={addModalShow}
+            courseId={id}
             getLessonsList={getLessonsList}
             onHide={() => setAddModalShow(false)}
           />

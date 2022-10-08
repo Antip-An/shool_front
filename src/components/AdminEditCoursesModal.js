@@ -10,8 +10,8 @@ export default function AdminEditCoursesdModal(props) {
 
   const editCourse = async (e) => {
     e.preventDefault()
-    const { success, message, id: photo } = await uploadImage(file)
-    const response = await postData(`/courses/update/${props.coursesData.id}`, { title, photo, description  });
+    // const { success, message, id: photo } = await uploadImage(file)
+    const response = await postData(`/courses/update/${props.coursesData.id}`, { title, description  });
 
     if (!response.success) {
       alert(response.message);
@@ -62,7 +62,6 @@ export default function AdminEditCoursesdModal(props) {
                 placeholder="Введите описание"
                 defaultValue={props.coursesData.author}
                 onChange={(event) => setDescription(event.target.value)}
-                required
               />
             </Form.Group>
 

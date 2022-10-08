@@ -10,9 +10,9 @@ export default function AdminAddCoursesdModal(props) {
 
   const createCourse = async (event) => {
     event.preventDefault()
-    const { success, message, id: photo } = await uploadImage(file)
-    if (success) {
-      const response = await postData("/courses/create", { title, photo, description });
+    // const { success, message, id: photo } = await uploadImage(file)
+    // if (success) {
+      const response = await postData("/courses/create", { title, description });
 
       if (!response.success) {
         alert(response.message);
@@ -21,10 +21,10 @@ export default function AdminAddCoursesdModal(props) {
       }
       setTitle("")
       setDescription("")
-      props.getCoursestList()
+      props.getCoursesList()
       return alert(response.message)
-    }
-    return alert(message)
+    // }
+    // return alert(message)
   };
   return (
     <Modal

@@ -65,7 +65,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="mailto:issues@gmail.com">Почта: hogwarts@gmail.com</a>
+              <a href="mailto:issues@gmail.com">Почта: Hogwarts@example.com</a>
             </li>
           </ul>
         </Col>
