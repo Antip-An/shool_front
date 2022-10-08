@@ -86,6 +86,7 @@ const CourseOne = () => {
     setEditLessonData(lesson);
   }
 
+  // Описание курса
   async function loadCourseData() {
     const result = await getData(`/courses/${id}`);
     console.log(result);

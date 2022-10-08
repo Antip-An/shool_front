@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { getData, postData, deleteData } from "../utils/network";
 
-import AdminAddCoursesdModal from "../components/AdminAddCoursesModal";
+import AdminAddTasksdModal from "../components/AdminAddTasksModal";
+import AdminEditTasksdModal from "../components/AdminEditTasksModal";
 
 import CloseButton from "react-bootstrap/CloseButton";
 import Container from "react-bootstrap/Container";
@@ -16,11 +17,15 @@ const TaskCard = ({ task, onDelete, onUpdate }) => {
   const { userData: user } = useUser();
 
   return (
-    <Card style={{ width: "40rem", marginTop:"20px"  }}>
+    <Card style={{ width: "40rem", marginTop: "20px" }}>
       <div style={{ margin: "15px" }}>
         <Form.Group className="mb-3" controlId={`task_${task.id}`}>
           <Form.Label>{task.question}</Form.Label>
-          <Form.Control type="task" placeholder="Ваш ответ" name={`task_${task.id}`} />
+          <Form.Control
+            type="task"
+            placeholder="Ваш ответ"
+            name={`task_${task.id}`}
+          />
         </Form.Group>
 
         {user && user.role === "admin" && (
@@ -43,6 +48,8 @@ const LessonOne = () => {
   let { id } = useParams();
   const { userData: user } = useUser();
   const [addModalShow, setAddModalShow] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [editTaskData, setEditTaskData] = useState();
   const [TasksList, setTasksList] = useState(false);
   const [lessonData, setLessonData] = useState();
   const navigate = useNavigate();
@@ -64,37 +71,51 @@ const LessonOne = () => {
     await getTasksList();
   }
 
+  async function handleUpdate(task) {
+    setEditModalShow(true);
+    setEditTaskData(task);
+  }
+
+  async function loadLessonsData() {
+    const result = await getData(`/lessons/${id}`);
+    console.log(result);
+    if (!result.success) return;
+    setLessonData(result.order);
+  }
+
   useEffect(() => {
     getTasksList();
+    loadLessonsData();
   }, []);
 
   async function handleSubmit(e) {
-    e.preventDefault()
-    const formData =  new FormData(e.target)
-    const formDataObject = Object.fromEntries(formData.entries())
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const formDataObject = Object.fromEntries(formData.entries());
     let total = 0;
     let success = 0;
     for (let key in formDataObject) {
-      const taskId = Number(key.split("_")[1])
-      const task = TasksList.find(t => t.id === taskId)
-      if (!task) continue
-      const answer = formDataObject[key]
-      if (answer === task.right_answer ) success +=1
-      total +=1
+      const taskId = Number(key.split("_")[1]);
+      const task = TasksList.find((t) => t.id === taskId);
+      if (!task) continue;
+      const answer = formDataObject[key];
+      if (answer === task.right_answer) success += 1;
+      total += 1;
     }
-    alert(`${success}/${total}`)
+    alert(`${success}/${total}`);
     // console.log(formDataObject)
   }
 
   return (
     <Container>
       <h1>Тема урока {lessonData && lessonData.title}</h1>
-      <h3>{lessonData && lessonData.lesson}</h3>
+      <h3>{lessonData && lessonData.study}</h3>
 
       {user && user.role === "admin" && (
         <>
-          <AdminAddCoursesdModal
+          <AdminAddTasksdModal
             show={addModalShow}
+            lessonId={id}
             getTasksList={getTasksList}
             onHide={() => setAddModalShow(false)}
           />
@@ -105,23 +126,39 @@ const LessonOne = () => {
         </>
       )}
 
-      
+      {user && user.role === "admin" && editTaskData && (
+        <>
+          <AdminEditTasksdModal
+            show={editModalShow}
+            tasksData={editTaskData}
+            getTasksList={getTasksList}
+            onHide={() => setEditModalShow(false)}
+          />
+
+          {/* <Button variant="primary" onClick={() => setAddModalShow(true)}>
+            Изменить
+          </Button> */}
+        </>
+      )}
+
       <Form onSubmit={handleSubmit}>
         {TasksList ? (
-        TasksList.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            isAdmin={user && user.role === "admin"}
-            onDelete={() => handleDelete(task.id)}
-          />
-        ))
-      ) : (
-        <h3>Вопросов нет</h3>
-      )}
-      <Button style={{ margin: "20px" }} type="submit" >Завершить</Button>
+          TasksList.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              isAdmin={user && user.role === "admin"}
+              onUpdate={() => handleUpdate(task)}
+              onDelete={() => handleDelete(task.id)}
+            />
+          ))
+        ) : (
+          <h3>Вопросов нет</h3>
+        )}
+        <Button style={{ margin: "20px" }} type="submit">
+          Завершить
+        </Button>
       </Form>
-
     </Container>
   );
 };

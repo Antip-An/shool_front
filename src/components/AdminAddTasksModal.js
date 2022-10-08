@@ -3,27 +3,25 @@ import { Button, Form, Modal, Row } from 'react-bootstrap';
 import { postData, uploadImage } from '../utils/network';
 
 
-export default function AdminAddLessonsdModal(props) {
-  const [title, setTitle] = useState();
-  const [study, setStudy] = useState();
-  const [courseId, setCourseId] = useState();
+export default function AdminAddTasksdModal(props) {
+  const [question, setQuestion] = useState();
+  const [right_answer, setRightAnswer] = useState();
   const [file, setFile] = useState()
 
-  const createLesson = async (event) => {
+  const createTask = async (event) => {
     event.preventDefault()
     // const { success, message, id: photo } = await uploadImage(file)
     // if (success) {
-      const response = await postData("/lessons/create", { title, study });
+      const response = await postData("/tasks/create", { question, right_answer });
 
       if (!response.success) {
         alert(response.message);
         if (response.code !== "NETWORK_ERROR");
         return;
       }
-      setTitle("")
-      setStudy("")
-      props.getLessonstList()
-      props.courseId()
+      setQuestion("")
+      setRightAnswer("")
+      props.getTasksList()
       return alert(response.message)
     // }
     // return alert(message)
@@ -38,34 +36,34 @@ export default function AdminAddLessonsdModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Добавление урока
+          Добавление вопроса
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>
-          <Form onSubmit={createLesson}>
+          <Form onSubmit={createTask}>
             <Form.Group className="reg-fg">
-              <Form.Label>Название</Form.Label>
+              <Form.Label>Вопрос</Form.Label>
               <Form.Control
                 size="lg"
                 type="text"
-                placeholder="Введите название урока"
+                placeholder="Введите вопрос"
                 required
-                id="title"
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
+                id="question"
+                value={question}
+                onChange={(event) => setQuestion(event.target.value)}
               />
             </Form.Group>
             <Form.Group className="reg-fg">
-              <Form.Label>Урок</Form.Label>
+              <Form.Label>Ответ</Form.Label>
               <Form.Control
                 size="lg"
                 type="text"
-                placeholder="Введите текст"
+                placeholder="Введите правильный ответ"
                 required
-                id="study"
-                value={study}
-                onChange={(event) => setStudy(event.target.value)}
+                id="right_answer"
+                value={right_answer}
+                onChange={(event) => setRightAnswer(event.target.value)}
               />
             </Form.Group>
             
