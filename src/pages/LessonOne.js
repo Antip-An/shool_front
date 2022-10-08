@@ -44,6 +44,7 @@ const LessonOne = () => {
   const { userData: user } = useUser();
   const [addModalShow, setAddModalShow] = useState(false);
   const [TasksList, setTasksList] = useState(false);
+  const [lessonData, setLessonData] = useState();
   const navigate = useNavigate();
 
   // const getUserData = async () => {
@@ -87,7 +88,8 @@ const LessonOne = () => {
 
   return (
     <Container>
-      <h1>Урок</h1>
+      <h1>Тема урока {lessonData && lessonData.title}</h1>
+      <h3>{lessonData && lessonData.lesson}</h3>
 
       {user && user.role === "admin" && (
         <>

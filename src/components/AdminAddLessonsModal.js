@@ -3,16 +3,17 @@ import { Button, Form, Modal, Row } from 'react-bootstrap';
 import { postData, uploadImage } from '../utils/network';
 
 
-export default function AdminAddCoursesdModal(props) {
+export default function AdminAddLessonsdModal(props) {
   const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
+  const [lesson, setLesson] = useState();
+  const [courseId, setCourseId] = useState();
   const [file, setFile] = useState()
 
-  const createCourse = async (event) => {
+  const createLesson = async (event) => {
     event.preventDefault()
-    const { success, message, id: photo } = await uploadImage(file)
-    if (success) {
-      const response = await postData("/courses/create", { title, photo, description });
+    // const { success, message, id: photo } = await uploadImage(file)
+    // if (success) {
+      const response = await postData("/lessons/create", { title, lesson });
 
       if (!response.success) {
         alert(response.message);
@@ -20,11 +21,12 @@ export default function AdminAddCoursesdModal(props) {
         return;
       }
       setTitle("")
-      setDescription("")
-      props.getCoursestList()
+      setLesson("")
+      props.getLessonstList()
+      props.courseId()
       return alert(response.message)
-    }
-    return alert(message)
+    // }
+    // return alert(message)
   };
   return (
     <Modal
@@ -36,18 +38,18 @@ export default function AdminAddCoursesdModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Добавление курса
+          Добавление урока
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>
-          <Form onSubmit={createCourse}>
+          <Form onSubmit={createLesson}>
             <Form.Group className="reg-fg">
               <Form.Label>Название</Form.Label>
               <Form.Control
                 size="lg"
                 type="text"
-                placeholder="Введите название курса"
+                placeholder="Введите название урока"
                 required
                 id="title"
                 value={title}
@@ -55,15 +57,15 @@ export default function AdminAddCoursesdModal(props) {
               />
             </Form.Group>
             <Form.Group className="reg-fg">
-              <Form.Label>Описание</Form.Label>
+              <Form.Label>Урок</Form.Label>
               <Form.Control
                 size="lg"
                 type="text"
-                placeholder="Введите описание"
+                placeholder="Введите текст"
                 required
-                id="description"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
+                id="lesson"
+                value={lesson}
+                onChange={(event) => setLesson(event.target.value)}
               />
             </Form.Group>
             

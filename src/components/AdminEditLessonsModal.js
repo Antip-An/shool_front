@@ -3,15 +3,15 @@ import { Button, Form, Modal, Row } from 'react-bootstrap';
 import { postData, uploadImage } from '../utils/network';
 
 
-export default function AdminEditCoursesdModal(props) {
+export default function AdminEditLessonsdModal(props) {
   const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
+  const [lesson, setlesson] = useState();
   const [file, setFile] = useState()
 
-  const editCourse = async (e) => {
+  const editLesson = async (e) => {
     e.preventDefault()
-    const { success, message, id: photo } = await uploadImage(file)
-    const response = await postData(`/courses/update/${props.coursesData.id}`, { title, photo, description  });
+    // const { success, message, id: photo } = await uploadImage(file)
+    const response = await postData(`/lessons/update/${props.lessonsData.id}`, { title, lesson  });
 
     if (!response.success) {
       alert(response.message);
@@ -19,8 +19,8 @@ export default function AdminEditCoursesdModal(props) {
       return;
     }
     setTitle()
-    setDescription()
-    props.getCoursesList()
+    setlesson()
+    props.getLessonsList()
     props.onHide()
     return alert(response.message)
   };
@@ -40,29 +40,28 @@ export default function AdminEditCoursesdModal(props) {
       <Modal.Body>
         <Row>
           <Form
-            onSubmit={ editCourse }
+            onSubmit={ editLesson }
           >
             <Form.Group className="reg-fg">
               <Form.Label>Название</Form.Label>
               <Form.Control
                 size="lg"
                 type="text"
-                placeholder="Введите название курса"
-                defaultValue={props.coursesData.title}
+                placeholder="Введите название урока"
+                defaultValue={props.lessonsData.title}
                 onChange={(event) => setTitle(event.target.value)}
                 required
               />
             </Form.Group>
 
             <Form.Group className="reg-fg">
-              <Form.Label>Описание</Form.Label>
+              <Form.Label>Текст</Form.Label>
               <Form.Control
                 size="lg"
                 type="text"
-                placeholder="Введите описание"
-                defaultValue={props.coursesData.author}
-                onChange={(event) => setDescription(event.target.value)}
-                required
+                placeholder="Введите текст"
+                defaultValue={props.lessonsData.lesson}
+                onChange={(event) => setlesson(event.target.value)}
               />
             </Form.Group>
 

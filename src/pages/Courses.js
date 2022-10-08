@@ -130,9 +130,9 @@ const Courses = () => {
             onHide={() => setEditModalShow(false)}
           />
 
-          <Button variant="primary" onClick={() => setAddModalShow(true)}>
-            Добавить Курс
-          </Button>
+          {/* <Button variant="primary" onClick={() => setAddModalShow(true)}>
+            Изменить
+          </Button> */}
         </>
       )}
 
