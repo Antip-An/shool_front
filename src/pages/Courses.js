@@ -1,3 +1,4 @@
+import { ChevronCompactDown } from "react-bootstrap-icons";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -6,6 +7,7 @@ import AdminEditCoursesdModal from "../components/AdminEditCoursesModal";
 import { getData, postData, deleteData } from "../utils/network";
 import { cartContext } from "../Page";
 
+import Carousel from "react-bootstrap/Carousel";
 import CardGroup from "react-bootstrap/CardGroup";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -14,6 +16,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 import useUser from "../hooks/useUser";
+import photo1 from "../assets/1.jpg";
 
 const CourseCard = ({ course, onDelete, onUpdate }) => {
   const navigate = useNavigate();
@@ -21,7 +24,7 @@ const CourseCard = ({ course, onDelete, onUpdate }) => {
 
   return (
     <CardGroup>
-      <Card style={{ width: "22rem", marginTop: "20px" }}>
+      <Card style={{ marginTop: "20px", marginBottom:"20px" }}>
         <Card.Body>
           <Card.Title>{course.title}</Card.Title>
           <Button
@@ -35,11 +38,19 @@ const CourseCard = ({ course, onDelete, onUpdate }) => {
 
           {user && user.role === "admin" && (
             <>
-              <Button variant="primary" onClick={onUpdate}>
+              <Button
+                style={{ marginLeft: "10px" }}
+                variant="primary"
+                onClick={onUpdate}
+              >
                 Изменить
               </Button>
 
-              <Button variant="primary" onClick={onDelete}>
+              <Button
+                style={{ float: "right" }}
+                variant="danger"
+                onClick={onDelete}
+              >
                 Удалить
               </Button>
             </>
@@ -104,7 +115,7 @@ const Courses = () => {
 
   return (
     <Container>
-      <h1 className="pt-3" style={{ color: "rgba(0,0,0,.55)" }}>
+      <h1 style={{ textAlign:"center", color: "rgba(0,0,0,.55)" }}>
         Курсы
       </h1>
       {user && user.role === "admin" && (
@@ -140,19 +151,18 @@ const Courses = () => {
         {CoursesList ? (
           CoursesList.map((course) => (
             <Col>
-            <CourseCard
-              key={course.id}
-              course={course}
-              isAdmin={user && user.role === "admin"}
-              onUpdate={() => handleUpdate(course)}
-              onDelete={() => handleDelete(course.id)}
-            />
+              <CourseCard
+                key={course.id}
+                course={course}
+                isAdmin={user && user.role === "admin"}
+                onUpdate={() => handleUpdate(course)}
+                onDelete={() => handleDelete(course.id)}
+              />
             </Col>
           ))
         ) : (
           <h3>Курсов нет</h3>
         )}
-
       </Row>
     </Container>
   );

@@ -22,7 +22,7 @@ const LessonCard = ({ lesson, onDelete, onUpdate }) => {
 
   return (
     <CardGroup>
-      <Card style={{ width: "22rem", marginTop: "20px" }}>
+      <Card style={{marginTop: "20px", marginBottom:"20px" }}>
         <Card.Body>
           <Card.Title>{lesson.title}</Card.Title>
           <Button
@@ -36,11 +36,11 @@ const LessonCard = ({ lesson, onDelete, onUpdate }) => {
 
           {user && user.role === "admin" && (
             <>
-              <Button variant="primary" onClick={onUpdate}>
+              <Button style={{marginLeft:"10px"}} variant="primary" onClick={onUpdate}>
                 Изменить
               </Button>
 
-              <Button variant="primary" onClick={onDelete}>
+              <Button style={{float:"right"}} variant="danger" onClick={onDelete}>
                 Удалить
               </Button>
             </>
@@ -119,7 +119,8 @@ const CourseOne = () => {
 
   return (
     <Container>
-      <h1>Курс {courseData && courseData.title}</h1>
+      
+      <h1 style={{ textAlign:"center", color: "rgba(0,0,0,.55)" }}>Курс {courseData && courseData.title}</h1>
       <h3>Описание: {courseData && courseData.description}</h3>
 
       {user && user.role === "admin" && (

@@ -5,6 +5,7 @@ import { getData, postData, deleteData } from "../utils/network";
 import AdminAddTasksdModal from "../components/AdminAddTasksModal";
 import AdminEditTasksdModal from "../components/AdminEditTasksModal";
 
+import CardGroup from "react-bootstrap/CardGroup";
 import CloseButton from "react-bootstrap/CloseButton";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -17,30 +18,36 @@ const TaskCard = ({ task, onDelete, onUpdate }) => {
   const { userData: user } = useUser();
 
   return (
-    <Card style={{ width: "40rem", marginTop: "20px" }}>
-      <div style={{ margin: "15px" }}>
-        <Form.Group className="mb-3" controlId={`task_${task.id}`}>
-          <Form.Label>{task.question}</Form.Label>
-          <Form.Control
-            type="task"
-            placeholder="Ваш ответ"
-            name={`task_${task.id}`}
-          />
-        </Form.Group>
+    <CardGroup>
+      <Card style={{ marginTop: "20px" }}>
+        <div style={{ margin: "15px" }}>
+          <Form.Group className="mb-3" controlId={`task_${task.id}`}>
+            <Form.Label>{task.question}</Form.Label>
+            <Form.Control
+              type="task"
+              placeholder="Ваш ответ"
+              name={`task_${task.id}`}
+            />
+          </Form.Group>
 
-        {user && user.role === "admin" && (
-          <>
-            <Button variant="primary" onClick={onUpdate}>
-              Изменить
-            </Button>
+          {user && user.role === "admin" && (
+            <>
+              <Button variant="primary" onClick={onUpdate}>
+                Изменить
+              </Button>
 
-            <Button variant="primary" onClick={onDelete}>
-              Удалить
-            </Button>
-          </>
-        )}
-      </div>
-    </Card>
+              <Button
+                style={{ float: "right" }}
+                variant="danger"
+                onClick={onDelete}
+              >
+                Удалить
+              </Button>
+            </>
+          )}
+        </div>
+      </Card>
+    </CardGroup>
   );
 };
 
@@ -108,7 +115,9 @@ const LessonOne = () => {
 
   return (
     <Container>
-      <h1>Тема урока {lessonData && lessonData.title}</h1>
+      <h1 style={{ textAlign: "center", color: "rgba(0,0,0,.55)" }}>
+        Урок {lessonData && lessonData.title}
+      </h1>
       <h3>{lessonData && lessonData.study}</h3>
 
       {user && user.role === "admin" && (
@@ -155,7 +164,10 @@ const LessonOne = () => {
         ) : (
           <h3>Вопросов нет</h3>
         )}
-        <Button style={{ margin: "20px" }} type="submit">
+        <Button
+          style={{ marginTop: "20px", marginBottom: "20px" }}
+          type="submit"
+        >
           Завершить
         </Button>
       </Form>
