@@ -6,11 +6,9 @@ import { postData, uploadImage } from '../utils/network';
 export default function AdminEditLessonsdModal(props) {
   const [title, setTitle] = useState();
   const [study, setStudy] = useState();
-  const [file, setFile] = useState()
 
   const editLesson = async (e) => {
     e.preventDefault()
-    // const { success, message, id: photo } = await uploadImage(file)
     const response = await postData(`/lessons/update/${props.lessonsData.id}`, { title, study });
 
     if (!response.success) {

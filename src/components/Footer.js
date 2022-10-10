@@ -51,7 +51,7 @@ const Footer = () => {
                 className={pathname === "/about" ? "current" : ""}
                 to="/about"
               >
-                Контакты
+                О нас
               </Link>
             </li>
           </ul>

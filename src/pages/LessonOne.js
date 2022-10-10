@@ -19,7 +19,7 @@ const TaskCard = ({ task, onDelete, onUpdate }) => {
 
   return (
     <CardGroup>
-      <Card style={{ marginTop: "20px" }}>
+      <Card style={{ marginTop: "20px", marginBottom: "20px", backgroundColor:"rgb(204, 227, 231)" }}>
         <div style={{ margin: "15px" }}>
           <Form.Group className="mb-3" controlId={`task_${task.id}`}>
             <Form.Label>{task.question}</Form.Label>
@@ -32,12 +32,16 @@ const TaskCard = ({ task, onDelete, onUpdate }) => {
 
           {user && user.role === "admin" && (
             <>
-              <Button variant="primary" onClick={onUpdate}>
+              <Button 
+                size="sm" 
+                style={{ backgroundColor:"rgba(1, 94, 113)", borderColor:"rgb(1, 94, 113)"}}
+                onClick={onUpdate}>
                 Изменить
               </Button>
 
               <Button
-                style={{ float: "right" }}
+                size="sm"
+                style={{ float: "right", backgroundColor:"rgba(158, 5, 5)", borderColor:"rgba(158, 5, 5)" }}
                 variant="danger"
                 onClick={onDelete}
               >
@@ -110,12 +114,11 @@ const LessonOne = () => {
       total += 1;
     }
     alert(`${success}/${total}`);
-    // console.log(formDataObject)
   }
 
   return (
     <Container>
-      <h1 style={{ textAlign: "center", color: "rgba(0,0,0,.55)" }}>
+      <h1 style={{ textAlign: "center", marginTop:"20px"}}>
         Урок {lessonData && lessonData.title}
       </h1>
       <h3>{lessonData && lessonData.study}</h3>
@@ -129,7 +132,9 @@ const LessonOne = () => {
             onHide={() => setAddModalShow(false)}
           />
 
-          <Button variant="primary" onClick={() => setAddModalShow(true)}>
+          <Button 
+            style={{ backgroundColor:"rgba(1, 94, 113)", borderColor:"rgb(1, 94, 113)" }}
+            onClick={() => setAddModalShow(true)}>
             Добавить вопрос
           </Button>
         </>
@@ -165,7 +170,7 @@ const LessonOne = () => {
           <h3>Вопросов нет</h3>
         )}
         <Button
-          style={{ marginTop: "20px", marginBottom: "20px" }}
+          style={{ marginTop: "10px", marginBottom: "20px", backgroundColor:"rgba(1, 94, 113)", borderColor:"rgb(1, 94, 113)", width:"50%", marginLeft:"25%" }}
           type="submit"
         >
           Завершить

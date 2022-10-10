@@ -1,36 +1,41 @@
 body {
-    height: 100vh;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+  height: 100vh;
+  font-family:'Times New Roman', Times, serif
 }
 
-
-/* #root{
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-} */ */
-
-.logo {
-    width: 105px;
-    margin-top: auto;
-}
-
-.carousel-caption #logo {
-    width: 250px!important;
-}
-
-#phot {
-    height: 100vh;
-    width: 100%;
-    object-fit: cover;
-}
-
-.carousel-caption{
-    top: 50%;
-    transform: translateY(-50%);
-    bottom: initial;
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .main {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.logo {
+  width: 105px;
+  margin-top: auto;
+}
+
+.carousel-caption #logo {
+  width: 250px !important;
+}
+
+#phot {
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: initial;
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .card-actions {
+    gap: 1em;
+  }
 }

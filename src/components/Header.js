@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
-import { PersonSquare, XCircle } from 'react-bootstrap-icons';
-import Container from "react-bootstrap/Container"
-import Navbar from "react-bootstrap/Navbar"
-import Nav from "react-bootstrap/Nav"
-import NavDropdown from "react-bootstrap/NavDropdown"
+import { PersonSquare, XCircle } from "react-bootstrap-icons";
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 import useToken from "../hooks/useToken";
 import logo from "../assets/logo.png";
@@ -23,7 +23,7 @@ const Header = () => {
   };
 
   return (
-    <Navbar expand="sm">
+    <Navbar expand="sm" id="header">
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img id="logo" src={logo} />
@@ -31,33 +31,41 @@ const Header = () => {
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav>
-            <Nav.Link as={Link} to="/" disabled={pathname === "/"}>
+            <Nav.Link
+              style={{ color: "rgb(180, 222, 231)" }}
+              as={Link}
+              to="/"
+              disabled={pathname === "/"}
+            >
               Главная
             </Nav.Link>
             {loggedIn ? (
-            <Nav.Link
-              as={Link}
-              to="/courses"
-              disabled={pathname === "/courses"}
-            >
-              Курсы
-            </Nav.Link>
-            ) : ( null )}
+              <Nav.Link
+                style={{ color: "rgb(180, 222, 231)" }}
+                as={Link}
+                to="/courses"
+                disabled={pathname === "/courses"}
+              >
+                Курсы
+              </Nav.Link>
+            ) : null}
 
-            <NavDropdown title="О нас">
-              <NavDropdown.Item as={Link} to="/privacy">
-                Политика конфиденциальности
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/about">
-                Контакты
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link
+              style={{ color: "rgb(180, 222, 231)" }}
+              as={Link}
+              to="/about"
+              disabled={pathname === "/about"}
+            >
+              О нас
+            </Nav.Link>
           </Nav>
 
-          <Nav class="ms-auto">
+          <Nav class="ms-auto" style={{ marginRight:"3%" }}>
             {!loggedIn ? (
-              <NavDropdown title="Вход" >
-                <NavDropdown.Item as={Link} to="/singin">Войти</NavDropdown.Item>
+              <NavDropdown style={{ color: "rgb(180, 222, 231)" }} title="Вход">
+                <NavDropdown.Item as={Link} to="/singin">
+                  Войти
+                </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/singup">
                   Зарегистрироваться
                 </NavDropdown.Item>
@@ -68,16 +76,19 @@ const Header = () => {
                   as={Link}
                   to="/profile"
                   disabled={pathname === "/profile"}
-                  style={{ display: "inline-block", marginRight:"15px" }}
+                  style={{ display: "inline-block", marginRight: "15px" }}
                 >
-                  <PersonSquare size={35} />
+                  <PersonSquare
+                    style={{ color: "rgb(180, 222, 231)" }}
+                    size={35}
+                  />
                 </Nav.Link>
 
                 <Nav.Link
                   onClick={onLogout}
                   style={{ display: "inline-block" }}
                 >
-                  <XCircle size={35} />
+                  <XCircle style={{ color: "rgb(180, 222, 231)" }} size={35} />
                 </Nav.Link>
               </>
             )}

@@ -10,11 +10,11 @@ import CardGroup from "react-bootstrap/CardGroup";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import CloseButton from "react-bootstrap/CloseButton";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 import useUser from "../hooks/useUser";
+import "../index.css"
 
 const LessonCard = ({ lesson, onDelete, onUpdate }) => {
   const navigate = useNavigate();
@@ -22,29 +22,54 @@ const LessonCard = ({ lesson, onDelete, onUpdate }) => {
 
   return (
     <CardGroup>
-      <Card style={{marginTop: "20px", marginBottom:"20px" }}>
+      <Card
+        style={{
+          marginTop: "20px",
+          marginBottom: "20px",
+          backgroundColor: "rgb(204, 227, 231)",
+        }}
+      >
         <Card.Body>
           <Card.Title>{lesson.title}</Card.Title>
-          <Button
-            variant="primary"
-            onClick={() => {
-              navigate("/lessons/" + lesson.id);
-            }}
-          >
-            Начать
-          </Button>
+          <Container>
+            <Row className="card-actions">
+              <Col xs={4} md={12} lg={4}>
+                <Button
+                  size="sm"
+                  style={{ backgroundColor: "rgb(1, 94, 113)", borderColor:"rgb(1, 94, 113)" }}
+                  onClick={() => {
+                    navigate("/lessons/" + lesson.id);
+                  }}
+                >
+                  Начать
+                </Button>
+              </Col>
 
-          {user && user.role === "admin" && (
-            <>
-              <Button style={{marginLeft:"10px"}} variant="primary" onClick={onUpdate}>
-                Изменить
-              </Button>
+              {user && user.role === "admin" && (
+                <>
+                  <Col xs={4} md={12} lg={4}>
+                    <Button
+                      size="sm"
+                      style={{ backgroundColor: "rgb(1, 94, 113)", borderColor:"rgb(1, 94, 113)" }}
+                      onClick={onUpdate}
+                    >
+                      Изменить
+                    </Button>
+                  </Col>
 
-              <Button style={{float:"right"}} variant="danger" onClick={onDelete}>
-                Удалить
-              </Button>
-            </>
-          )}
+                  <Col xs={4} md={12} lg={4}>
+                    <Button
+                      size="sm"
+                      style={{ backgroundColor:"rgba(158, 5, 5)", borderColor:"rgba(158, 5, 5)" }}
+                      onClick={onDelete}
+                    >
+                      Удалить
+                    </Button>
+                  </Col>
+                </>
+              )}
+            </Row>
+          </Container>
         </Card.Body>
       </Card>
     </CardGroup>
@@ -119,8 +144,9 @@ const CourseOne = () => {
 
   return (
     <Container>
-      
-      <h1 style={{ textAlign:"center", color: "rgba(0,0,0,.55)" }}>Курс {courseData && courseData.title}</h1>
+      <h1 style={{ textAlign: "center", marginTop:"20px" }}>
+        Курс {courseData && courseData.title}
+      </h1>
       <h3>Описание: {courseData && courseData.description}</h3>
 
       {user && user.role === "admin" && (
@@ -131,7 +157,13 @@ const CourseOne = () => {
             getLessonsList={getLessonsList}
             onHide={() => setAddModalShow(false)}
           />
-          <Button variant="primary" onClick={() => setAddModalShow(true)}>
+          <Button
+            style={{
+              backgroundColor: "rgba(1, 94, 113)",
+              borderColor: "rgb(1, 94, 113)",
+            }}
+            onClick={() => setAddModalShow(true)}
+          >
             Добавить урок
           </Button>
         </>
@@ -152,22 +184,22 @@ const CourseOne = () => {
         </>
       )}
 
-    <Row>
-      {LessonsList ? (
-        LessonsList.map((lesson) => (
-          <Col>
-          <LessonCard
-            key={lesson.id}
-            lesson={lesson}
-            isAdmin={user && user.role === "admin"}
-            onUpdate={() => handleUpdate(lesson)}
-            onDelete={() => handleDelete(lesson.id)}
-          />
-          </Col>
-        ))
-      ) : (
-        <h3>Уроков нет</h3>
-      )}
+      <Row>
+        {LessonsList ? (
+          LessonsList.map((lesson) => (
+            <Col id="col" md={4} xs={12}>
+              <LessonCard
+                key={lesson.id}
+                lesson={lesson}
+                isAdmin={user && user.role === "admin"}
+                onUpdate={() => handleUpdate(lesson)}
+                onDelete={() => handleDelete(lesson.id)}
+              />
+            </Col>
+          ))
+        ) : (
+          <h3>Уроков нет</h3>
+        )}
       </Row>
     </Container>
   );

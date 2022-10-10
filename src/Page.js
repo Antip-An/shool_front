@@ -15,7 +15,7 @@ const Page = () => {
   const [cartList, setCartList] = useState([]);
 
   return (
-    <div>
+    <>
         <cartContext.Provider value={{ cartList, setCartList }}>
           <Header />
           <div className="main">
@@ -23,7 +23,7 @@ const Page = () => {
           </div>
           <Footer />
         </cartContext.Provider>
-    </div>
+    </>
   );
 };
 

@@ -10,9 +10,8 @@ export default function AdminAddTasksdModal(props) {
 
   const createTask = async (event) => {
     event.preventDefault()
-    // const { success, message, id: photo } = await uploadImage(file)
-    // if (success) {
-      const response = await postData("/tasks/create", { question, right_answer });
+
+      const response = await postData("/tasks/create", { question, right_answer, id_lesson: props.lessonId });
 
       if (!response.success) {
         alert(response.message);
@@ -23,8 +22,7 @@ export default function AdminAddTasksdModal(props) {
       setRightAnswer("")
       props.getTasksList()
       return alert(response.message)
-    // }
-    // return alert(message)
+
   };
   return (
     <Modal

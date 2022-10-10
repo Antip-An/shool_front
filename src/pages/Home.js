@@ -35,7 +35,7 @@ const Home = () => {
         <Carousel.Item>
           <img id="phot" src={photo2} />
 
-          <Carousel.Caption style={{ marginTop: "-170px" }}>
+          <Carousel.Caption style={{ marginTop: "-100px" }}>
             <h1>Присоединяйтесь</h1>
             <h5>С нами вы сможете узнать много нового!</h5>
           </Carousel.Caption>

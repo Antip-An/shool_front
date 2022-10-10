@@ -36,7 +36,7 @@ const UserForm = () => {
       >
         <Card className="w-100">
           <Card.Body>
-            <Card.Title style={{ "fontFamily": "Century Gothic","letterSpacing": "3.5px", "textAlign": "center","fontSize":"30px" }}>Изменить ваши данные</Card.Title>
+            <Card.Title style={{ "fontFamily": "Times New Roman","letterSpacing": "3.5px", "textAlign": "center","fontSize":"30px" }}>Изменение данных</Card.Title>
             <Form onSubmit={editUserData}>
               <Form.Group className="reg-fg">
                 <Form.Label>Логин</Form.Label>
@@ -68,7 +68,11 @@ const UserForm = () => {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Form.Group> <br/>
-              <Button onSubmit={editUserData} style={{"width":"300px",  "margin": "0 auto", "display": "block","borderColor": "black", "color": "black", backgroundColor:"rgb(120, 189, 201)"}} type='submit'>Изменить</Button>
+              <Button 
+              onSubmit={editUserData} 
+              style={{"width":"300px",  "margin": "0 auto", "display": "block","borderColor": "black", 
+              backgroundColor: "rgba(1, 94, 113)", borderColor: "rgb(1, 94, 113)",}} 
+              type='submit'>Изменить</Button>
             </Form>
           </Card.Body>
         </Card>
@@ -83,7 +87,7 @@ const Profile = () => {
 
   return (
     <Container>
-      <h1 className="pt-3" style={{ textAlign:"center", color: "rgba(0,0,0,.55)" }}>Профиль</h1>
+      <h1 className="pt-3" style={{ textAlign:"center"}}>Профиль</h1>
       {user &&
         <>
           <h3>Логин:</h3> <p>{user.login}</p>

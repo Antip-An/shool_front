@@ -6,14 +6,12 @@ import { postData, uploadImage } from '../utils/network';
 export default function AdminAddLessonsdModal(props) {
   const [title, setTitle] = useState();
   const [study, setStudy] = useState();
-  const [courseId, setCourseId] = useState();
   const [file, setFile] = useState()
 
   const createLesson = async (event) => {
     event.preventDefault()
-    // const { success, message, id: photo } = await uploadImage(file)
-    // if (success) {
-      const response = await postData("/lessons/create", { title, study });
+
+      const response = await postData("/lessons/create", { title, study, id_course: props.courseId });
 
       if (!response.success) {
         alert(response.message);
@@ -22,11 +20,9 @@ export default function AdminAddLessonsdModal(props) {
       }
       setTitle("")
       setStudy("")
-      props.getLessonstList()
-      props.courseId()
+      props.getLessonsList()
       return alert(response.message)
-    // }
-    // return alert(message)
+
   };
   return (
     <Modal
